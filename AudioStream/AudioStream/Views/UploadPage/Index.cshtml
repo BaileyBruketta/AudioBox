@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using AudioStream.Areas.Identity.Data
+
+@inject SignInManager<AudioStreamUser> SignInManager
+@inject UserManager<AudioStreamUser> UserManager
+
+@{
+    ViewData["Title"] = "Upload";
+}
+
+<h1>Upload</h1>
+
+<p>this is the upload page</p>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div>
+        <h3>Single File Upload</h3>
+        <form asp-controller="UploadPage" asp-action="FileUpload"
+              enctype="multipart/form-data" actionmethod="post">
+            <input type="file" name="file" />
+            <br />
+            <p> <input type="text" name="songName" /> Song Title </p>
+            <p> <input type="text" name="Genre" /> Genre</p>
+       
+            <br />
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+}
+else
+{
+    <p>You must be signed in to upload music</p>
+}
+
+@UserManager.GetUserName(User)

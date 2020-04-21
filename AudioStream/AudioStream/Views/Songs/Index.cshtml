@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<p>Songs go here</p>
+<p>Incoming Music</p>
 
 
 
@@ -17,6 +17,10 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                <p>Music</p>
+            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -38,6 +42,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                <audio controls>
+                    <source src="@Url.Content("~/"+item.Title+".mp3")" type="audio/mpeg">
+                </audio>
+            </td>
+            
+            <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td></td>
@@ -50,6 +60,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ReleaseDate)
             </td>
+             
             @*
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

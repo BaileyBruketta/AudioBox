@@ -39,8 +39,8 @@ namespace AudioStream.Controllers
         public async Task<IActionResult> FileUpload(IFormFile file, string songName, string Genre)
         {
             //create file path / store file path
-            string fileName = songName + ".png"          ;     
-            var    dir      = _env.ContentRootPath       ;     
+            string fileName = songName + ".mp3"          ;     
+            var    dir      = _env.WebRootPath           ;
             var    fullpath = Path.Combine(dir, fileName);
 
             //Add uplaoded file to file base     / saves files to server with precreated filepath name 

@@ -24,6 +24,9 @@
           "buildTransitive/netcoreapp3.0/EntityFramework.targets": {}
         }
       },
+      "jQuery/3.5.0.1": {
+        "type": "package"
+      },
       "Microsoft.AspNetCore.Cryptography.Internal/3.1.1": {
         "type": "package",
         "compile": {
@@ -2984,6 +2987,29 @@
         "tools/netcoreapp3.0/any/ef6.dll",
         "tools/netcoreapp3.0/any/ef6.pdb",
         "tools/netcoreapp3.0/any/ef6.runtimeconfig.json"
+      ]
+    },
+    "jQuery/3.5.0.1": {
+      "sha512": "nonOMyjbk06vF05LECisH6HY2dZlKTAAXZ2UdvumY8pWMsWPo949G2KLvdyNWRMWL1Nv9vrYb1IEUVN+U+nt/Q==",
+      "type": "package",
+      "path": "jquery/3.5.0.1",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Content/Scripts/jquery-3.5.0-vsdoc.js",
+        "Content/Scripts/jquery-3.5.0.js",
+        "Content/Scripts/jquery-3.5.0.min.js",
+        "Content/Scripts/jquery-3.5.0.min.map",
+        "Content/Scripts/jquery-3.5.0.slim.js",
+        "Content/Scripts/jquery-3.5.0.slim.min.js",
+        "Content/Scripts/jquery-3.5.0.slim.min.map",
+        "Tools/common.ps1",
+        "Tools/install.ps1",
+        "Tools/jquery-3.5.0.intellisense.js",
+        "Tools/uninstall.ps1",
+        "jquery.3.5.0.1.nupkg.sha512",
+        "jquery.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Cryptography.Internal/3.1.1": {
@@ -9247,7 +9273,8 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.3",
       "Microsoft.EntityFrameworkCore.Sqlite >= 3.1.1",
       "Microsoft.EntityFrameworkCore.Tools >= 3.1.1",
-      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.1"
+      "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.1",
+      "jQuery >= 3.5.0.1"
     ]
   },
   "packageFolders": {
@@ -9327,6 +9354,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[3.1.1, )"
+          },
+          "jQuery": {
+            "target": "Package",
+            "version": "[3.5.0.1, )"
           }
         },
         "imports": [

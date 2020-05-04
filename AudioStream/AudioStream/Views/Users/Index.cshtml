@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<AudioStream.Models.User>
 
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -23,12 +24,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.Name)
             </th>
-          @* <th>
-                @Html.DisplayNameFor(model => model.Email)
+            <th></th>
+           <th>
+                songs 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
+                primary genre
+            </th>@*
             <th>
                 @Html.DisplayNameFor(model => model.ArtistAccount)
             </th> *@
@@ -39,14 +41,17 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-              <a asp-action="externalProfile" asp-route-id="@item.Id">  @Html.DisplayFor(modelItem => item.Name) </a>
-            </td>
-        @**   <td>
-                @Html.DisplayFor(modelItem => item.Email)
+                @Html.DisplayFor(modelItem => item.Name) 
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Password)
+                <a asp-action="externalProfile" asp-route-id="@item.Id"> <input class="small" type="submit" value="go to page" /> </a>
             </td>
+            <td>
+                <p>empty field</p>
+            </td> 
+            <td>
+                empty field
+            </td>   @*
             <td>
                 @Html.DisplayFor(modelItem => item.ArtistAccount)
             </td> *@

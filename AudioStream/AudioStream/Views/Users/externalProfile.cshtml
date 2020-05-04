@@ -1,8 +1,95 @@
-﻿@model AudioStream.Models.User
+﻿@*@model AudioStream.Models.User*@
+
+@model IEnumerable<AudioStream.Models.Song>
+
 @{
     ViewData["Title"] = "externalProfile";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
 }
 
-<h1>@Html.DisplayFor(model => model.Name)</h1>
 
+
+<h1>@ViewData["ArtistName"]</h1>
+
+<p>@ViewData["ArtistBio"]</p>
+
+
+
+@* ///////////////////////////////////////////////////////////*@
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <h4>Music</h4>
+            </th>
+
+            <th>
+                <h4>Title</h4>
+            </th>
+            <th></th>
+            <th>
+                <h4>Genre</h4>
+            </th>
+            <th>
+                <h4>Release Date</h4>
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    <audio controls preload="auto" onended="endSong(id)" onplay="playSong(id)" class="songs" id="@item.Id">
+                        <source src="@Url.Content("~/"+item.Title+".mp3")" type="audio/mpeg">
+                    </audio>
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/js/site.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+
+@*///////////////////////////////////////// This fires off when a song is ended////////////*@
+<script type="text/javascript">
+    function endSong(id) {
+        var i = 0;
+        var audioArray = document.getElementsByClassName('songs'); //get all songs on the page
+        while (audioArray[i].id != id) { i++; }                              //check if we have iterated to the value of the song that has just played
+        i += 1;                                        //move value to next song
+        audioArray[i].play(); //play the next song
+    }
+</script>
+@*/////////////////////////////////////// This stops all songs that are playing aside from the one we want to play ///////*@
+<script type="text/javascript">
+    function playSong(id) {
+        var i = 0;
+        var audioArray = document.getElementsByClassName('songs'); //get all songs on page
+        for (i = 0; i < audioArray.length; i++)                              //iterate through songs
+        {
+            if (audioArray[i].id != id) { audioArray[i].pause(); }            //pause any song that doesnt have the id that was passed to the function
+        }
+    }
+</script>
+@*TODO :  REPLAY BUTTON &&&& COUNT REPLAYS VS PLAYS*@

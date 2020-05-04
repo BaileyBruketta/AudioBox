@@ -32,7 +32,24 @@ namespace AudioStream.Controllers
         //            /                   /                    /                /                        /                            /
         public IActionResult Index()
         {
-            return View();
+            var userid = User.Identity.Name;
+            var user = _context.User.FirstOrDefault(p => p.Email == userid);
+
+
+            return View(user);
+        }
+        //User edits bio
+        public async Task<IActionResult> BioEdit(string bio)
+        {
+            var userid = User.Identity.Name;
+            var user = _context.User.FirstOrDefault(p => p.Email == userid);
+            //user       = user.Where(s => s.Email == userid);
+            user.bio = bio;
+             _context.SaveChanges();
+
+            return RedirectToAction("Index");
+
+
         }
 
         //User chooses file and fills out details 
@@ -49,7 +66,7 @@ namespace AudioStream.Controllers
 
             //Retreive user details from identity/ current user id / authenticated session /    /    /     /    /    
             var    userid        = User.Identity.Name   ;    // retreieve session ID
-            var    date          = DateTime.Today       ;    // retreive  date
+            var    date          = DateTime.Now         ;    // retreive  date
             string artistNameStr = ""                   ;    // create empty string field
             var    uses          = _context.User        ;    // begin user iteration
             foreach (User d in uses)

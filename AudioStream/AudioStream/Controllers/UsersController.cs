@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AudioStream.Data;
 using AudioStream.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace AudioStream.Controllers
 {
@@ -58,13 +59,34 @@ namespace AudioStream.Controllers
             return View(user);
         }
 
+        // /           /               /                 /                 /    This displays an artists profile, can be called from Artists tab or profile button / / /
         // GET: Users/externalProfile/5
-        public async Task<IActionResult> externalProfile(int?id)
+        public async Task<IActionResult> externalProfile(int? id)
         {
-            if (id == null)   { return NotFound(); }
+            //retreive user
+            if (id   == null)   { return NotFound(); }
             var user = await _context.User.FirstOrDefaultAsync(m => m.Id == id);
-            if (user == null) { return NotFound(); }
-            return View(user);
+            if (user == null)   { return NotFound(); }
+
+            ViewData["ArtistName"] = user.Name                  ; //send the artists name to the viewdata for access on view layer
+            ViewData["ArtistBio"]  = user.bio                   ; //send the artists bio to the viewdata for access on view layer
+
+            //retreive one users songs
+            var songs = from m in _context.Song select m        ; //get all songs
+            songs     = songs.Where(s => s.Artist == user.Email); //select songs by the artist
+            
+            return View(songs)                                  ; //relay view with selected songs : viewdata with artist name and list of artist sonsg
+        }
+
+        //This is used to send the user to their public facing profile via the profile button in the login partial view / nav bar    /        /       /         /   /
+        public async Task<IActionResult> redirectToProfile(IdentityUser? l)
+        {
+            var usercheck = from m in _context.User select m              ; //pull up list of user profiles
+                usercheck = usercheck.Where(s => s.Email == l.Id)         ; //select user with email matching the email of the user identity that called this action      
+            User x        = usercheck.FirstOrDefault()                    ; //assign the queried user to an user object for temporary reference
+            var idNumber  = x.Id                                          ; //retreive the id number of the user
+
+            return RedirectToAction("externalProfile", new {id= idNumber}); //pass the id number to the external profile function to view their public facing profile
         }
 
         // GET: Users/Create

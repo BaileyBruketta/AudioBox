@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AudioStream.Data;
+using AudioStream.Migrations;
+using AudioStream.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AudioStream.Data;
-using AudioStream.Models;
+using System.Collections;
+
 
 namespace AudioStream.Controllers
 {
@@ -21,9 +22,101 @@ namespace AudioStream.Controllers
 
         // GET: Songs
         //match artists to songs and return a list
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string genre, string artistSelection)
         {
-            return View(await _context.Song.ToListAsync());
+            //order songs by date and return 100 newest songs in dB
+            var songs = from m in _context.Song
+                        select m;
+            songs = songs.OrderByDescending(s=>s.ReleaseDate).Take(100);
+
+            //filter by genre
+            if(genre != null)
+            {
+                if (genre != "all")
+                {
+                    songs = songs.Where(s => s.Genre == genre);
+                }
+            }
+
+            //filter by artist
+            if (artistSelection != null)
+            {
+                songs = songs.Where(s => s.ArtistName == artistSelection);
+                ViewData["ArtistSelection"] = " by " + artistSelection;
+            }
+            else ViewData["ArtistSelection"] = "";
+
+            ViewData["GenreSelection"]  = genre;
+            
+
+            //return songs list to page 
+            return View(await songs.ToListAsync());
+        }
+         
+        //Adds a songs to a users list of liked songs, removes songs from dislike list, changes the songs count of likes/dislikes
+        public void LikeSong(Song song)
+        {
+            //initiate needed variables
+            var userid = User.Identity.Name;
+            bool check = false;
+
+            //grab the user object for the logged in identity
+            var user = _context.User.FirstOrDefault(p => p.Email == userid);
+
+            //grabs a reference to the song in the database for editing
+            var songToEdit = _context.Song.FirstOrDefault(p => p.Id == song.Id);
+
+            //iterate through songs that the user likes
+            var x = user.LikedSongs.Length - 1;
+            for(int i = 0; i < x; i++)
+            {
+                if (user.LikedSongs[i].Id ==  song.Id)
+                {
+                    check = true;
+                }
+            }
+
+            //if user has not liked the afforementioned song, add the song to the user's list of liked songs 
+            //we add one like to the songs like count
+            if(check==false)
+            {
+                user.LikedSongs.Append(song);
+                songToEdit.Likes += 1;
+            }
+
+            //here we see if the song has previously been in the user's list of disliked songs
+            bool check2 = false;
+            var numToR = 0;
+            x = user.DislikedSongs.Length - 1;
+            for(int i = 0; i < x; i ++)
+            {
+                if(user.DislikedSongs[i].Id == song.Id)
+                {
+                    check2 = true;
+                    numToR = i;
+                }
+            }
+
+            //if the song had been previously found in the user's list of disliked songs, we remove it here
+            //we also remove "1" from the count of dislikes the song currently holds
+            if (check2==true)
+            {
+                Song[] newArray = new Song[0];
+                for(int i = 0; i < x; i ++)
+                {
+                    if(i!=numToR)
+                    {
+                        newArray.Append(user.DislikedSongs[i]);
+                    }
+                }
+                user.DislikedSongs = newArray;
+                songToEdit.Dislikes -= 1;
+                
+            }
+
+
+            _context.SaveChanges();
+
         }
 
         // GET: Songs/Details/5

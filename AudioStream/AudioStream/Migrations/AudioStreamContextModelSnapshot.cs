@@ -32,8 +32,14 @@ namespace AudioStream.Migrations
                     b.Property<string>("ArtistName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Dislikes")
+                        .HasColumnType("int");
+
                     b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
 
                     b.Property<string>("PathVal")
                         .HasColumnType("nvarchar(max)");
@@ -44,7 +50,17 @@ namespace AudioStream.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Song");
                 });
@@ -68,9 +84,29 @@ namespace AudioStream.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("bio")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("numberOfSongs")
+                        .HasColumnType("int");
+
+                    b.Property<string>("primarygenre")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("AudioStream.Models.Song", b =>
+                {
+                    b.HasOne("AudioStream.Models.User", null)
+                        .WithMany("DislikedSongs")
+                        .HasForeignKey("UserId");
+
+                    b.HasOne("AudioStream.Models.User", null)
+                        .WithMany("LikedSongs")
+                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

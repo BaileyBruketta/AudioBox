@@ -59,8 +59,12 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-image: url(../xxx1.png);
+    opacity: 0.77;
+    background-repeat: no-repeat;
+    background-size: auto;
 }
 .footer {
   position: absolute;

@@ -6,34 +6,89 @@
 
 <h1>Stream</h1>
 
-<p>
+@*<p>
     <a asp-action="Create">Create New</a>
 </p>
-<p>Incoming Music</p>
+    *@
+<p>New Music - @ViewData["GenreSelection"] @ViewData["ArtistSelection"]</p>
 
 
+<form asp-controller="Songs" asp-action="Index">
+    <p>
+        Genre Selection: 
+        <select name="genre">
+            <option value="all">all</option>
+            
+            <option value="phonk">phonk</option>
+            <option value="vapor">vapor</option>
+            <option value="drill">drill</option>
+            <option value="new wave">new wave</option>
+            <option value="trap">trap</option>
+            <option value="crunk">crunk</option>
+            <option value="old school">old school</option>
+            <option value="distorted 808s">distorted 808s</option>
+           
 
+            <option value="witch house">witch house</option>
+            <option value="shoegaze">shoegaze</option>
+            <option value="ambient">ambient</option>
+            <option value="vaporwave">vaporwave</option>
+            <option value="seapunk">seapunk</option>
+            <option value="indie">indie</option>
+            <option value="dream pop">dream pop</option>
+
+            <option value="psychedelic rock">psychedelic rock</option>
+            <option value="alternative rock">alternative rock</option>
+            <option value="math rock">math rock</option>
+            <option value="hardcore">hardcore</option>
+            <option value="post hardcore">post hardcore</option>
+            <option value="metal">metal</option>
+            <option value="death metal">death metal</option>
+            <option value="house music">house music</option>
+            <option value="soul">soul</option>
+            <option value="jazz">jazz</option>
+            <option value="electronic jazz">electronic jazz</option>
+            <option value="r&b">r&b</option>
+            <option value="reggae">reggae</option>
+            <option value="lo-fi">lo-fi</option>
+            <option value="classic dance">classic dance</option>
+            <option value="deep house">deep house</option>
+            <option value="progressive house">progressive house</option>
+            <option value="trance">trance</option>
+            <option value="dubstep2008">dubstep (2008)</option>
+            <option value="hardstyle">hardstyle</option>
+            <option value="riddim">riddim</option>
+            <option value="drum n bass">drum n bass</option>
+            <option value="jungle">jungle</option>
+        </select>
+        Artist Search:
+        <input type="text" name="artistSelection" class="small"/>
+        <input type="submit" value="filter songs" />
+    </p>
+</form>
 
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                <p>Music</p>
+                <h4>Music</h4>
             </th>
+            
 
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                <h4>Title</h4>
             </th>
             <th></th>
             <th>
-                @Html.DisplayNameFor(model => model.ArtistName)
+                @*@Html.DisplayNameFor(model => model.ArtistName) *@
+                <h4>Artist</h4>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Genre)
+                <h4>Genre</h4>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ReleaseDate)
+                <h4>Release Date</h4>
             </th>
 
             <th></th>

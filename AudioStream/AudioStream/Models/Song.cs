@@ -11,7 +11,7 @@ namespace AudioStream.Models
         //metadata for songs 
         public int      Id             { get; set; }
         public string   Title          { get; set; }
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime ReleaseDate    { get; set; }
         public string   Genre          { get; set; }
 
@@ -22,6 +22,9 @@ namespace AudioStream.Models
 
         //This is the name that gets displayed
         public string  ArtistName      { get; set; }
+
+        public int     Likes           { get; set; }
+        public int     Dislikes        { get; set; }
 
     }
 }

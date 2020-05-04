@@ -3,7 +3,7 @@
 
 @inject SignInManager<AudioStreamUser> SignInManager
 @inject UserManager<AudioStreamUser> UserManager
-
+@model User
 @{
     ViewData["Title"] = "Upload";
 }
@@ -14,6 +14,8 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
+    if (Model.ArtistAccount==true)
+    {
     <div>
         <h3>Single File Upload</h3>
         <form asp-controller="UploadPage" asp-action="FileUpload"
@@ -21,16 +23,75 @@
             <input type="file" name="file" />
             <br />
             <p> <input type="text" name="songName" /> Song Title </p>
-            <p> <input type="text" name="Genre" /> Genre</p>
-       
+            @*<p> <input type="" name="Genre" /> Genre</p>*@
+        <select name="Genre">
+            <option value="phonk">phonk</option>
+            <option value="vapor">vapor</option>
+            <option value="drill">drill</option>
+            <option value="new wave">new wave</option>
+            <option value="trap">trap</option>
+            <option value="crunk">crunk</option>
+            <option value="old school">old school</option>
+            <option value="distorted 808s">distorted 808s</option>
+            
+
+            <option value="witch house">witch house</option>
+            <option value="shoegaze">shoegaze</option>
+            <option value="ambient">ambient</option>
+            <option value="vaporwave">vaporwave</option>
+            <option value="seapunk">seapunk</option>
+            <option value="indie">indie</option>
+            <option value="dream pop">dream pop</option>
+
+            <option value="psychedelic rock">psychedelic rock</option>
+            <option value="alternative rock">alternative rock</option>
+            <option value="math rock">math rock</option>
+            <option value="hardcore">hardcore</option>
+            <option value="post hardcore">post hardcore</option>
+            <option value="metal">metal</option>
+            <option value="death metal">death metal</option>
+            <option value="house music">house music</option>
+            <option value="soul">soul</option>
+            <option value="jazz">jazz</option>
+            <option value="electronic jazz">electronic jazz</option>
+            <option value="r&b">r&b</option>
+            <option value="reggae">reggae</option>
+            <option value="lo-fi">lo-fi</option>
+            <option value="classic dance">classic dance</option>
+            <option value="deep house">deep house</option>
+            <option value="progressive house">progressive house</option>
+            <option value="trance">trance</option>
+            <option value="dubstep2008">dubstep (2008)</option>
+            <option value="hardstyle">hardstyle</option>
+            <option value="riddim">riddim</option>
+            <option value="drum n bass">drum n bass</option>
+            <option value="jungle">jungle</option>
+
+        </select>
+            <label>Genre</label>
             <br />
             <button type="submit">Submit</button>
         </form>
     </div>
+
+
+    <h1>Edit Bio</h1>
+    <form asp-controller="UploadPage" asp-action="BioEdit"
+          enctype="multipart/form-data" actionmethod="post">
+        edit Bio: 
+        <input type ="text" name="bio" />
+        <button type="submit">Save Bio Changes</button>
+
+    </form>
+    }
+    else
+    {
+        <p>You must have a verified artist account to post music and have a bio.</p>
+    }
 }
 else
 {
     <p>You must be signed in to upload music</p>
 }
 
-@UserManager.GetUserName(User)
+@*@UserManager.GetUserName(User)*@

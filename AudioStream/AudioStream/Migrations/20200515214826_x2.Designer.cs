@@ -4,14 +4,16 @@ using AudioStream.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AudioStream.Migrations
 {
     [DbContext(typeof(AudioStreamContext))]
-    partial class AudioStreamContextModelSnapshot : ModelSnapshot
+    [Migration("20200515214826_x2")]
+    partial class x2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

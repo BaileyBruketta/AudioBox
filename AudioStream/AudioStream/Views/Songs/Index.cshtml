@@ -81,6 +81,10 @@
             </th>
             <th></th>
             <th>
+                <h4>Likes</h4>
+            </th>
+            <th></th>
+            <th>
                 @*@Html.DisplayNameFor(model => model.ArtistName) *@
                 <h4>Artist</h4>
             </th>
@@ -108,6 +112,14 @@
 
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Likes)
+                    <form asp-controller="Songs" asp-action="LikeSong">
+                        
+                        <input type="submit" value="Like" item="song" />
+                    </form>
                 </td>
                 <td></td>
                 <td>

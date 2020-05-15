@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,9 +22,9 @@ namespace AudioStream.Models
 
         public string primarygenre  { get; set; }
 
-        public Song[] LikedSongs    { get; set; }
 
-        public Song[] DislikedSongs { get; set; }
+        public string LikedSongs    { get; set; }
+        public string DislikedSongs { get; set; }
 
       
 

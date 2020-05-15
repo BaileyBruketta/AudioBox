@@ -4,14 +4,16 @@ using AudioStream.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AudioStream.Migrations
 {
     [DbContext(typeof(AudioStreamContext))]
-    partial class AudioStreamContextModelSnapshot : ModelSnapshot
+    [Migration("20200515214043_x1")]
+    partial class x1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,20 +49,20 @@ namespace AudioStream.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("SongId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SongId2")
-                        .HasColumnType("int");
-
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("SongId");
+                    b.HasIndex("UserId");
 
-                    b.HasIndex("SongId2");
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Song");
                 });
@@ -101,12 +103,12 @@ namespace AudioStream.Migrations
             modelBuilder.Entity("AudioStream.Models.Song", b =>
                 {
                     b.HasOne("AudioStream.Models.User", null)
-                        .WithMany("LikedSongs")
-                        .HasForeignKey("SongId");
+                        .WithMany("DislikedSongs")
+                        .HasForeignKey("UserId");
 
                     b.HasOne("AudioStream.Models.User", null)
-                        .WithMany("DislikedSongs")
-                        .HasForeignKey("SongId2");
+                        .WithMany("LikedSongs")
+                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }
